@@ -19,7 +19,6 @@ import android.graphics.Bitmap
 import android.util.Log
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.TaskCompletionSource
-import org.tensorflow.lite.Interpreter
 import java.io.FileInputStream
 import java.io.IOException
 import java.nio.ByteBuffer
@@ -30,7 +29,6 @@ import java.util.concurrent.Executors
 
 class DigitClassifier(private val context: Context) {
   // TODO: Add a TF Lite interpreter as a field.
-  private var interpreter: Interpreter? = null
 
   var isInitialized = false
     private set
@@ -58,17 +56,8 @@ class DigitClassifier(private val context: Context) {
   @Throws(IOException::class)
   private fun initializeInterpreter() {
     // TODO: Load the TF Lite model from file and initialize an interpreter.
-    val assetManager = context.assets
-    val model = loadModelFile(assetManager, "mnist.tflite")
-    val options = Interpreter.Options()
-    options.setUseNNAPI(true)
-    val interpreter = Interpreter(model, options)
 
     // TODO: Read the model input shape from model file.
-    val inputShape = interpreter.getInputTensor(0).shape()
-    inputImageWidth = inputShape[1]
-    inputImageHeight = inputShape[2]
-    modelInputSize = FLOAT_TYPE_SIZE * inputImageWidth * inputImageHeight * PIXEL_SIZE
 
     isInitialized = true
     Log.d(TAG, "Initialized TFLite interpreter.")
