@@ -14,6 +14,9 @@ android {
     }
 
     // TODO: Add an option to avoid compressing TF Lite model file
+    aaptOptions {
+        noCompress "tflite"
+    }
 
     buildTypes {
         release {
@@ -46,6 +49,7 @@ dependencies {
     implementation "com.google.android.gms:play-services-tasks:17.0.0"
 
     //TODO: Add TF Lite
+    implementation 'org.tensorflow:tensorflow-lite:2.0.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
